@@ -4,6 +4,7 @@ import Image from 'react-bootstrap/Image';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import Alert from 'react-bootstrap/Alert';
 
 
 class App extends React.Component{
@@ -35,7 +36,7 @@ class App extends React.Component{
     catch{
       this.setState({
         displayMsg : true,
-        msg:'ERROR',
+        msg:'ERROR : Unable to geocode',
       })
 
 
@@ -68,7 +69,10 @@ class App extends React.Component{
         
         {this.state.showMap && <Image src={`https://maps.locationiq.com/v3/staticmap?key=pk.d4d8710c42b8bcdc64be1378a880880b&center=${this.state.locationData.lat},${this.state.locationData.lon}`} alt={`Map for ${this.state.display_name}`} roundedCircle  />}
        
-        { this.state.displayMsg && this.state.msg}
+        { this.state.displayMsg &&  
+        <Alert variant='secondary'>
+        {this.state.msg}
+        </Alert>  }
 
       </div>
     )
