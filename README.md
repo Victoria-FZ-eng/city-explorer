@@ -6,10 +6,10 @@
 **Version**: 1.0.0 
 
 ## Overview
-This is an application that allow the user to enter any location's name (city, country , village,...), to get the map of this entered location.
+This is an application that allow the user to enter any location's name (city, country , village,...), to get the map of this entered location, the longitude, latitude and Forcast for the region .
 
 ## Getting Started
-Enter the name of the city or region you want to display the map for, and then click on Explore.
+Enter the name of the city or region you want to display the map for, and then click on Explore. if you want to get the weather data , just click on show weather!
 
 ## Architecture
 This is build as a react js application, using axios library.
@@ -19,6 +19,7 @@ This is build as a react js application, using axios library.
 
 01-01-2001 4:59pm - Application now has a fully-functional express server, with a GET route for the location resource. -->
 13th June 2021, lab06 (rendering the map).
+16 June 2021 , lab07 (region and weather data)
 
 ## Credit and Collaborations
 <!-- Give credit (and a link) to other people or resources that helped you build this application. -->
