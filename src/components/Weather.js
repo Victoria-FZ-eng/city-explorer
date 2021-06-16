@@ -1,4 +1,4 @@
-'use strict';
+
 
 
 import React from 'react';
@@ -6,7 +6,8 @@ import axios from 'axios';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Button from 'react-bootstrap/Button';
-import ListGroup from 'react-bootstrap/ListGroup'
+import ListGroup from 'react-bootstrap/ListGroup';
+import Alert from 'react-bootstrap/Alert';
 
 
 class Weather extends React.Component{
@@ -15,58 +16,59 @@ class Weather extends React.Component{
         super(props);
         this.state={
             weatherData:[],
-            msg: '',
+            
+            displayMsg: false,
+
+            showList:false
             
 
 
         }
 
     }
-    getWeather = async () =>{
+    getWeather = async (event) =>{
+        event.preventDefault();
         let dataLink = `https://city-explorer-vz.herokuapp.com/cityData?cityName=${this.props.city}`;
-        console.log("inside city weather function");
+        // console.log("inside city weather function");
         try{
           let data = await axios.get(dataLink);
-          console.log(typeof data.data);
+        //   console.log(typeof data.data);
           this.setState({
             weatherData: data.data,
-            
+            showList:true,
           })
-          console.log(this.state.weatherData);
+        //  console.log(this.state.weatherData);
     
         }
         catch{
+            console.log("nodata");
           this.setState({
             displayMsg:true,
-            msg:'ERROR : NOT FOUND',
+            
           })
          
         }
       }
 
-      displaying=()=>{
-
-      }
-
-
-
     render(){
         return(
 
            <div>
-               { this.props.show && <Button  variant="secondary" size="lg" onClick={this.getWeather}  class="btn">
+               { this.props.show && <Button  variant="secondary" size="lg" onClick={this.getWeather}  className="btn">
             Show Weather
                 </Button> }
-                
-             
-                <ListGroup>
-            
-                {this.state.weatherData.map((item)=>
-                   <ListGroup.Item variant="warning"> {item.date}  {item.description}  </ListGroup.Item>
-                )}
-                </ListGroup> 
 
-                        
+
+            { this.state.showList &&  (typeof this.state.weatherData == 'string')? <p>{this.state.weatherData}</p> : <ListGroup>
+            
+            {this.state.weatherData.map((item)=>
+               <ListGroup.Item variant="warning"> {item.date}  {item.description}  </ListGroup.Item>
+            )}
+            </ListGroup>  }
+
+                { this.state.displayMsg && <Alert variant='secondary' >
+                  Error: DATA NOT FOUND
+                     </Alert> }
            </div>
         )
     }

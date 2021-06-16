@@ -73,15 +73,15 @@ class App extends React.Component{
 
   render(){
     return (
-      <div class="div">
-        <h1 class="elem">City Explorer</h1>
-        <Form onSubmit={this.getMap} class="elem">
+      <div className="div">
+        <h1 className="elem">City Explorer</h1>
+        <Form onSubmit={this.getMap} className="elem">
           <Form.Control size="lg" type="text" placeholder="Type the location" name='location' required/>
-          <Button  variant="secondary" size="lg" type='submit' class="btn">
+          <Button  variant="secondary" size="lg" type='submit' className="btn">
             Explore
           </Button>
           </Form>
-        <h3 class="elem">{this.state.locationData.display_name}</h3>
+        <h3 className="elem">{this.state.locationData.display_name}</h3>
         
         {this.state.showMap && <Image src={`https://maps.locationiq.com/v3/staticmap?key=pk.d4d8710c42b8bcdc64be1378a880880b&center=${this.state.locationData.lat},${this.state.locationData.lon}`} alt={`Map for ${this.state.display_name}`} roundedCircle  />}
        
@@ -89,10 +89,10 @@ class App extends React.Component{
         <Alert variant='secondary'>
         {this.state.msg}
         </Alert>  }
-        <p class="elem">{this.state.lonlat}</p>
+        <p className="elem">{this.state.lonlat}</p>
 
        
-        <Weather show={this.state.showWeather} city={this.state.searchQuery}  class="elem"/>
+        <Weather show={this.state.showWeather} city={this.state.searchQuery}  className="elem"/>
 
       </div>
     )
