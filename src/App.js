@@ -5,6 +5,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Alert from 'react-bootstrap/Alert';
+import Weather from './components/Weather.js';
+
 
 
 class App extends React.Component{
@@ -17,8 +19,11 @@ class App extends React.Component{
       showMap: false,
       displayMsg : false,
       searchQuery:'',
-
+      lonlat:'',
+      showWeather: false,
+     
     }
+    
   }
 
   getMap=async(event)=>{
@@ -31,41 +36,52 @@ class App extends React.Component{
       this.setState({
         locationData : renderResult.data[0],
         showMap: true,
+        searchQuery: searchLocation,
       })
+      this.getWeatherData();
+      console.log(this.state.searchQuery);
     }
     catch{
       this.setState({
         displayMsg : true,
         msg:'ERROR : Unable to geocode',
       })
-
+    }
+    
+  }
+ 
+  getWeatherData = async () =>{
+    let dataLink = `https://city-explorer-vz.herokuapp.com/searchCity?cityName=${this.state.searchQuery}`;
+    // console.log("inside function");
+    try{
+      let render = await axios.get(dataLink);
+      this.setState({
+        lonlat: render.data,
+       showWeather: true,
+      })
+      // console.log(this.lonlat);
 
     }
-
+    catch{
+      this.setState({
+        displayMsg:true,
+        msg:'ERROR : NOT FOUND',
+      })
+     
+    }
   }
-  // updateLocation=(event)=>{
-  //   event.preventDefault();
-  //   // this.setState({
-  //   //   searchQuery:event.target.value,
-  //   // })
-  //   this.getMap();
 
-  // }
   render(){
     return (
-      <div>
-        <h1>City Explorer</h1>
-        <Form onSubmit={this.getMap}>
-          <Form.Control size="lg" type="text" placeholder="Type the location" name='location' />
-          <Button  variant="secondary" size="lg" type='submit'>
+      <div class="div">
+        <h1 class="elem">City Explorer</h1>
+        <Form onSubmit={this.getMap} class="elem">
+          <Form.Control size="lg" type="text" placeholder="Type the location" name='location' required/>
+          <Button  variant="secondary" size="lg" type='submit' class="btn">
             Explore
           </Button>
           </Form>
-        
-        
-       
-
-        <h3>{this.state.locationData.display_name}</h3>
+        <h3 class="elem">{this.state.locationData.display_name}</h3>
         
         {this.state.showMap && <Image src={`https://maps.locationiq.com/v3/staticmap?key=pk.d4d8710c42b8bcdc64be1378a880880b&center=${this.state.locationData.lat},${this.state.locationData.lon}`} alt={`Map for ${this.state.display_name}`} roundedCircle  />}
        
@@ -73,6 +89,10 @@ class App extends React.Component{
         <Alert variant='secondary'>
         {this.state.msg}
         </Alert>  }
+        <p class="elem">{this.state.lonlat}</p>
+
+       
+        <Weather show={this.state.showWeather} city={this.state.searchQuery}  class="elem"/>
 
       </div>
     )
