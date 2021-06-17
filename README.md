@@ -15,14 +15,13 @@ Enter the name of the city or region you want to display the map for, and then c
 This is build as a react js application, using axios library.
 
 ## Change Log
-<!-- Use this area to document the iterative changes made to your application as each feature is successfully implemented. Use time stamps. Here's an example:
 
-01-01-2001 4:59pm - Application now has a fully-functional express server, with a GET route for the location resource. -->
 13th June 2021, lab06 (rendering the map).
-16 June 2021 , lab07 (region and weather data)
+16th June 2021 , lab07 (region and weather data).
+17th June 2021, lab08 (movies and weather data from api urls).
 
 ## Credit and Collaborations
-<!-- Give credit (and a link) to other people or resources that helped you build this application. -->
+
 I had an error --> `this.state={}` instead of `this.state({})` and I got help from the TA's.
 
 
