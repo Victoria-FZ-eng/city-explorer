@@ -1,6 +1,3 @@
-
-
-
 import React from 'react';
 import axios from 'axios';
 
@@ -11,34 +8,23 @@ import Alert from 'react-bootstrap/Alert';
 
 
 class Weather extends React.Component{
-
     constructor(props){
         super(props);
         this.state={
             weatherData:[],
-            
             displayMsg: false,
-
             showList:false
-            
-
-
-        }
-
+      }
     }
     getWeather = async (event) =>{
         event.preventDefault();
         let dataLink = `https://city-explorer-vz.herokuapp.com/cityData?cityName=${this.props.city}`;
-        // console.log("inside city weather function");
         try{
           let data = await axios.get(dataLink);
-        //   console.log(typeof data.data);
           this.setState({
             weatherData: data.data,
             showList:true,
           })
-        //  console.log(this.state.weatherData);
-    
         }
         catch{
             console.log("nodata");
