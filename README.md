@@ -6,7 +6,7 @@
 **Version**: 1.0.0 
 
 ## Overview
-This is an application that allow the user to enter any location's name (city, country , village,...), to get the map of this entered location, the longitude, latitude and Forcast for the region .
+This is an application that allow the user to enter any location's name (city, country , village,...), to get the map of this entered location, the longitude, latitude, Forcast and top 20 movies for the region .
 
 ## Getting Started
 Enter the name of the city or region you want to display the map for, and then click on Explore. if you want to get the weather data , just click on show weather!
@@ -19,6 +19,7 @@ This is build as a react js application, using axios library.
 13th June 2021, lab06 (rendering the map).
 16th June 2021 , lab07 (region and weather data).
 17th June 2021, lab08 (movies and weather data from api urls).
+17th June 2021, lab09 (refactoring)
 
 ## Credit and Collaborations
 

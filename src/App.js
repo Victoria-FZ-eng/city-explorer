@@ -1,5 +1,3 @@
-
-
 import React from 'react';
 import axios from 'axios';
 import Image from 'react-bootstrap/Image';
@@ -8,12 +6,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Alert from 'react-bootstrap/Alert';
 import Weather from './components/Weather.js';
-import Card from 'react-bootstrap/Card';
-import CardGroup from 'react-bootstrap/CardGroup';
-import ListGroup from 'react-bootstrap/ListGroup';
-
-
-
+import Movie from './components/Movies.js';
 
 class App extends React.Component{
 
@@ -31,9 +24,7 @@ class App extends React.Component{
       movieArr:[],
       movieErr: '',
       displaymr:false,
-     
     }
-    
   }
 
   getMap=async(event)=>{
@@ -58,27 +49,22 @@ class App extends React.Component{
         msg:'ERROR : Unable to geocode',
       })
     }
-    
   }
  
   getWeatherData = async () =>{
     let dataLink = `https://city-explorer-vz.herokuapp.com/searchCity?cityName=${this.state.searchQuery}`;
-    // console.log("inside function");
     try{
       let render = await axios.get(dataLink);
       this.setState({
         lonlat: render.data,
        showWeather: true,
       })
-      // console.log(this.lonlat);
-
     }
     catch{
       this.setState({
         displayMsg:true,
         msg:'ERROR : NOT FOUND',
       })
-     
     }
   }
 
@@ -93,36 +79,14 @@ class App extends React.Component{
       this.setState({
               showCard: true,
               movieArr: movieData.data,
-              
             })
     }
     catch{
       this.setState({
               movieErr:"NO MOVIES FOUND",
               displaymr: true,
-              
             })
     }
-    // axios 
-    //   .get(link).then(
-    //     this.setState({
-    //       showCard: true,
-    //       movieArr: link.data,
-          
-    //     })
-    //     )
-     
-    //   . catch( err=>{
-    //     this.setState({
-    //       movieErr:"NO MOVIES FOUND",
-    //       displaymr: true,
-    //     })
-    //    })
-
-    //    console.log(link.data);
-
-
-       
   }
 
   render(){
@@ -146,31 +110,9 @@ class App extends React.Component{
         <p className="elem">{this.state.lonlat}</p>
        
         <Weather show={this.state.showWeather} city={this.state.searchQuery}  className="elem"/>
-        
-        {this.state.showCard && 
-       (this.state.movieArr).map((movie)=>(
-          <CardGroup >
-          <Card >
-             <Card.Img variant="top" src={`https://image.tmdb.org/t/p/w500${movie.poster}`} alt="Poster" />
-             <Card.Body>
-                  <Card.Title>{movie.name}</Card.Title>
-                  <Card.Text>
-                    {movie.description}
-                  </Card.Text>
-             </Card.Body>
-             <ListGroup className="list-group-flush">
-               <ListGroup.Item>Release-Date: {movie.date}</ListGroup.Item>
-               <ListGroup.Item>Popularity: {movie.pop}</ListGroup.Item>   
-             </ListGroup>
-          </Card>
-        </CardGroup>
-        ))}
-        
-        { this.state.displaymr &&
-        <Alert variant='secondary'>
-        {this.state.movieErr}
-        </Alert>
-        }
+
+        <Movie show={this.state.showCard} arr={this.state.movieArr} display={this.state.displaymr} err={this.state.movieErr}/>
+     
       </div>
     )
   }
